@@ -8,5 +8,5 @@ def add(a: int, b: int) -> int:
 
 
 def multiply(a: int, b: int) -> int:
-    # BUG: mistakenly uses addition instead of multiplication
-    return a + b
+    # Fixed: return product instead of sum
+    return a * b

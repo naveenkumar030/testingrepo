@@ -1,11 +1,10 @@
-import pytest
-from data_pipeline import standardize_user_profile
+from data_pipeline import standardize_user_profile, parse_tags, extract_domain_from_email
 
 def test_standardize_user_profile():
     raw_payload = {
         "id": 101,
         "name": "Naveen Kumar",
-        "email": "Naveen@Example.Com"
+        "email": "Naveen@Example.com"
     }
     result = standardize_user_profile(raw_payload)
     assert result["display_name"] == "Naveen Kumar"
@@ -55,3 +54,15 @@ def test_standardize_user_profile_with_emma():
     }
     result = standardize_user_profile(raw_payload)
     assert result["display_name"] == "Emma Watson"
+
+def test_parse_tags_multiple():
+    assert parse_tags("python,testing,ci,automation") == ["python", "testing", "ci", "automation"]
+
+def test_parse_tags_two_items():
+    assert parse_tags("frontend,backend") == ["frontend", "backend"]
+
+def test_extract_domain_standard():
+    assert extract_domain_from_email("alice@gmail.com") == "gmail.com"
+
+def test_extract_domain_custom_org():
+    assert extract_domain_from_email("dev@opensource.org") == "opensource.org"

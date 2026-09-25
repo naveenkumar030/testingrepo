@@ -1,4 +1,4 @@
-from calculator import add, multiply
+from calculator import add, multiply, subtract, divide, power
 
 def test_add():
     assert add(2, 3) == 5
@@ -23,3 +23,33 @@ def test_multiply_six_by_seven():
 
 def test_multiply_eight_by_nine():
     assert multiply(8, 9) == 72
+
+def test_subtract_positive():
+    assert subtract(10, 4) == 6
+
+def test_subtract_to_negative():
+    assert subtract(3, 8) == -5
+
+def test_subtract_zero():
+    assert subtract(15, 0) == 15
+
+def test_divide_clean():
+    assert divide(10, 2) == 5.0
+
+def test_divide_fraction():
+    assert divide(1, 4) == 0.25
+
+def test_divide_large():
+    assert divide(100, 5) == 20.0
+
+def test_power_two_cubed():
+    assert power(2, 3) == 8
+
+def test_power_three_squared():
+    assert power(3, 2) == 9
+
+def test_power_five_cubed():
+    assert power(5, 3) == 125
+
+def test_power_two_to_fourth():
+    assert power(2, 4) == 16

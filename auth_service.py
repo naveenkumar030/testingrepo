@@ -12,4 +12,4 @@ def is_token_valid(token_data: dict) -> bool:
     """
     current_time = time.time()
     expires_at = token_data.get("expires_at", 0)
-    return current_time > expires_at
+    return expires_at > current_time

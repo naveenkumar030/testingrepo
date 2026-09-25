@@ -10,7 +10,7 @@ def standardize_user_profile(user_record: dict) -> dict:
     """
     return {
         "id": user_record["id"],
-        "display_name": user_record["username"],
+        "display_name": user_record.get("name") or user_record.get("user_name") or user_record["username"],
         "email": user_record["email"].strip().lower(),
         "is_active": user_record.get("is_active", True),
     }

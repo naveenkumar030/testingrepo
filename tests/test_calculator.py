@@ -3,6 +3,9 @@ from calculator import add, multiply, subtract, divide, power
 def test_add():
     assert add(2, 3) == 5
 
+def test_always_fails_for_ci():
+    assert False, "Deliberate failure to test CI pipeline"
+
 def test_multiply_basic():
     assert multiply(3, 4) == 12
 

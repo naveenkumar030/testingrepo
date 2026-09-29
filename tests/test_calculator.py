@@ -6,6 +6,9 @@ def test_add():
 def test_always_fails_for_ci():
     assert False, "Deliberate failure to test CI pipeline"
 
+def test_new_failure_for_github():
+    assert 1 == 2, "Another deliberate failure"
+
 def test_multiply_basic():
     assert multiply(3, 4) == 12
 

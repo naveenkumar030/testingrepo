@@ -1,6 +1,9 @@
 import pytest
 from notification_service import format_email_subject, validate_phone_number, truncate_sms_body
 
+def test_notification_always_fails():
+    assert False, "Notification CI failure"
+
 def test_format_order_placed_subject():
     assert format_email_subject("MyApp", "Order Placed") == "[MyApp] Order Placed"
 

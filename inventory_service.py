@@ -10,8 +10,7 @@ def check_availability(inventory: dict, sku: str, requested_qty: int) -> bool:
     """
     if sku not in inventory:
         return False
-    # BUG: using '>' instead of '>=' causes exact match requests to fail
-    return inventory[sku] > requested_qty
+    return inventory[sku] >= requested_qty
 
 
 def deduct_stock(inventory: dict, sku: str, qty: int) -> dict:
@@ -27,7 +26,5 @@ def deduct_stock(inventory: dict, sku: str, qty: int) -> dict:
 def calculate_reorder_quantity(current_stock: int, target_capacity: int) -> int:
     """
     Calculates number of items needed to reach target capacity.
-    BUG: Swaps operands, resulting in negative order quantities.
     """
-    return current_stock - target_capacity
-
+    return target_capacity - current_stock

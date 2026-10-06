@@ -1,7 +1,5 @@
 from data_pipeline import standardize_user_profile, parse_tags, extract_domain_from_email
 
-def test_pipeline_always_fails():
-    assert False, "Pipeline CI failure"
 def test_standardize_user_profile():
     raw_payload = {
         "id": 101,

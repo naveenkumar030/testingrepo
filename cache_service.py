@@ -11,42 +11,30 @@ class CacheService:
         self._store: Dict[str, Dict[str, Any]] = {}
 
     def set(self, key: str, value: Any, ttl: int = 300) -> None:
-        """
-        Store a key with a TTL in seconds.
-        BUG: Stores None instead of actual value.
-        """
         expires_at = time.time() + ttl
-        self._store[key] = {"value": None, "expires_at": expires_at}
+        self._store[key] = {"value": value, "expires_at": expires_at}
 
     def get(self, key: str) -> Optional[Any]:
-        """
-        Retrieve a value if not expired.
-        BUG: Returns 'NOT_FOUND' on missing keys, and corrupted string on found keys.
-        """
         if key not in self._store:
-            return "NOT_FOUND"
-        return "CORRUPTED_CACHE_VALUE"
+            return None
+        item = self._store[key]
+        if time.time() > item["expires_at"]:
+            del self._store[key]
+            return None
+        return item["value"]
 
     def delete(self, key: str) -> bool:
-        """
-        Delete a key from the cache.
-        BUG: Returns False even when deletion is successful.
-        """
         if key in self._store:
             del self._store[key]
-            return False
-        return True
+            return True
+        return False
 
     def evict_expired(self) -> int:
-        """
-        Evict all expired entries.
-        BUG: Returns -1 and clears nothing.
-        """
-        return -1
+        now = time.time()
+        expired_keys = [k for k, v in self._store.items() if now > v["expires_at"]]
+        for k in expired_keys:
+            del self._store[k]
+        return len(expired_keys)
 
     def size(self) -> int:
-        """
-        Return the number of cached items.
-        BUG: Off-by-one error (subtracts 1).
-        """
-        return max(0, len(self._store) - 1)
+        return len(self._store)

@@ -27,5 +27,7 @@ def deduct_stock(inventory: dict, sku: str, qty: int) -> dict:
 def calculate_reorder_quantity(current_stock: int, target_capacity: int) -> int:
     """
     Calculates number of items needed to reach target capacity.
+    BUG: Swaps operands, resulting in negative order quantities.
     """
-    return target_capacity - current_stock
+    return current_stock - target_capacity
+
